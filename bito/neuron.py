@@ -1,18 +1,26 @@
 import torch
+import openai
+import argparse
 import bittensor
 import subprocess
 
-class Bito(torch.nn.Module):
-    def __init__(self):
-        super(Bito, self).__init__()
+from typing import List, Dict
 
-    def forward(self, text="hey"):
+
+class Bito( bittensor.BasePromptingMiner ):
+
+    def backward( self, messages: List[Dict[str, str]], response: str, rewards: torch.FloatTensor ) -> str: pass
+
+    def __init__( self ):
+        super( Bito, self ).__init__()
+
+    def forward( self, messages: List[Dict[str, str]]  ) -> str:
         command = ['bito']
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout, stderr = process.communicate(text.encode())
+        stdout, stderr = process.communicate(messages.encode())
         output = stdout.decode().strip()
         return output
 
-neuron = bittensor.neuron.Neuron(Bito())
-
-neuron.run()
+if __name__ == "__main__":
+    bittensor.utils.version_checking()
+    Bito().run()
