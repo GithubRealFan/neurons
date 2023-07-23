@@ -2,9 +2,9 @@ import torch
 import bittensor
 import subprocess
 
-class MyModel(torch.nn.Module):
+class Bito(torch.nn.Module):
     def __init__(self):
-        super(MyModel, self).__init__()
+        super(Bito, self).__init__()
 
     def forward(self, text="hey"):
         command = ['bito']
@@ -13,6 +13,6 @@ class MyModel(torch.nn.Module):
         output = stdout.decode().strip()
         return output
 
-neuron = bittensor.neuron.Neuron(MyModel())
+neuron = bittensor.neuron.Neuron(Bito())
 
 neuron.run()
