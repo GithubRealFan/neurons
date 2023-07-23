@@ -8,8 +8,13 @@ from typing import List, Dict
 
 
 class Bito( bittensor.BasePromptingMiner ):
+    @classmethod
+    def check_config( cls, config: 'bittensor.Config' ): pass
 
     def backward( self, messages: List[Dict[str, str]], response: str, rewards: torch.FloatTensor ) -> str: pass
+
+    @classmethod
+    def add_args( cls, parser: argparse.ArgumentParser ): pass
 
     def __init__( self ):
         super( Bito, self ).__init__()
